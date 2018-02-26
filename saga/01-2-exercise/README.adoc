@@ -1,0 +1,7 @@
+= Pet Sitter Finder Practice
+
+This exercise focuses on annotation configuration.
+
+== Exercise 02
+
+Convert the demo you've created in Exercise 01, so that it is based on Annotation Configuration using (@Component, @Service, @Repository, @Autowire, @ComponentScan)

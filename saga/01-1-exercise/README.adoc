@@ -1,0 +1,9 @@
+= Pet Sitter Finder Exercise
+
+This demo example process a request for
+finding a pet sitter and returns a response.
+
+== Exercise
+
+Migrate away from a tightly coupled
+`SimpleOperationsService` to a Spring application.

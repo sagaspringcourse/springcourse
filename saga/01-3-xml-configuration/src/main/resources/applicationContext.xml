@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="rs.saga.businessobject"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"/>
+
+    <bean id="player" class="rs.saga.businessobject.Player">
+        <constructor-arg name="age" value="20"/>
+        <constructor-arg name="firstName" value="John"/>
+        <constructor-arg name="lastName" value="Doe"/>
+        <constructor-arg name="dateOfBirth" value="1998/10/10"/>
+    </bean>
+</beans>
+

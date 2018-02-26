@@ -1,0 +1,4 @@
+== Exercise 04:
+
+Add missing configuration so that the game is played
+

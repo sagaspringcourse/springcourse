@@ -1,0 +1,21 @@
+= Exercise
+
+== Exercise 01-ps-start-practice
+And now that you know what Spring can help you with,
+you are invited to have a taste of how things are done without it.
+
+Take a look at the `01-ps-start-practice project`. In the `SimpleOperationsService` class there is
+a method named `createResponse` that needs an implementation.
+
+The steps to create a `Response` instance are:
+
+. retrieve the sitter User instance using userRepo
+. retrieve the Request instance using requestRepo
+. instantiate a Response instance
+. populate the Response instance:
+.. set the response status to `ResponseStatus.PROPOSED`
+.. set the user to the sitter instance
+.. set details with a sample text
+.. add the response to the request object
+.. save the response object using the verb|responseRepo|
+

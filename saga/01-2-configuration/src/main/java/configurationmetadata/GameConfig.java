@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
  * @since 2018-01-15
  */
 @Configuration
-@ComponentScan(basePackages = {"rs.saga.businessobject", "rs.saga.dao", "rs.saga.service"})
+@ComponentScan(basePackages = {"rs.saga.businessobject"})
 @Import(DataSourceConfig.class)
 public class GameConfig {
 

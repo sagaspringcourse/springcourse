@@ -2,7 +2,7 @@ package configurationmetadata;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 import javax.sql.DataSource;
 
@@ -16,6 +16,6 @@ public class DataSourceConfig {
 
     @Bean
     public DataSource dataSource() {
-        return new DriverManagerDataSource();
+        return new SimpleDriverDataSource();
     }
 }

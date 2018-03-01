@@ -14,7 +14,7 @@ import rs.saga.businessobject.Referee;
 public class GameConfig {
 
     @Bean
-    public Referee referee() {
+    public Referee ref() {
         return new Referee("John");
     }
 }

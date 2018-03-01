@@ -1,12 +1,14 @@
 package rs.saga.businessobject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-01-15
  */
+@Scope("prototype")
 @Component
 public class Game implements IGame{
 

@@ -1,0 +1,18 @@
+= Exercise
+
+== Exercise 02-ps-container-01-practice
+
+!  Since this is the end of an important section, there is a task for you.
+
+In project 02-ps-container-01-practice there is a configuration file that has gotten a little too big:
+
+02-ps-container-01-practice/src/main/resources/spring/others/sample-config-01.xml.
+
+Split this file into one or more configuration files, and modify the test class
+com.ps.beans.others.MtBeanTest to use those files to load the context.
+The test must complete successfully in order to validate your configuration.
+
+A solution is provided for you in the 02-ps-container-01-solution project.
+You can compare your result with this and draw conclusions.
+As a bonus, try using wildcards.
+

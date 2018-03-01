@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>rs.saga</groupId>
-    <artifactId>00-04-bean-scopes</artifactId>
+    <artifactId>00-04-bean-scopes-exercise</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>

@@ -1,0 +1,4 @@
+== Exercise 02-02
+
+Like in the previous exercise, the `findByName` method is added to `IGame` service.
+Implement a proper `mock`, so that all the tests within `MockingTest` are green.

@@ -66,47 +66,4 @@ public class GameStubTest {
         gameUnderTest.update(home);
     }
 
-    @Test
-    public void testFindByNameSuccess() {
-        home = new CrvenaZvezda();
-        away = new Partizan();
-        teamRepo = new ITeamRepo() {
-            @Override
-            public boolean delete(ITeam team) throws TeamNotFoundException {
-                return false;
-            }
-
-            @Override
-            public ITeam save(ITeam team) {
-                return team;
-            }
-        };
-        gameUnderTest = new Game(home, away, teamRepo);
-
-        ITeam found = gameUnderTest.findByName("CrvenaZvezda");
-
-        assertNotNull(found);
-        assertThat(found.name(), is("CrvenaZvezda"));
-    }
-
-    @Test(expected = TeamNotFoundException.class)
-    public void testFindByNameFailure() {
-        home = new CrvenaZvezda();
-        away = new Partizan();
-        teamRepo = new ITeamRepo() {
-            @Override
-            public boolean delete(ITeam team) throws TeamNotFoundException {
-                throw new TeamNotFoundException();
-            }
-
-            @Override
-            public ITeam save(ITeam team) {
-                return team;
-            }
-        };
-
-        gameUnderTest = new Game(home, away, teamRepo);
-
-        gameUnderTest.findByName("CrvenaZvezda");
-    }
 }

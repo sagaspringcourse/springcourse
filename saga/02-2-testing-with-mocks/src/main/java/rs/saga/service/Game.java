@@ -6,9 +6,6 @@ import org.springframework.stereotype.Service;
 import rs.saga.businessobject.ITeam;
 import rs.saga.dao.ITeamRepo;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-01-15
@@ -21,32 +18,28 @@ public class Game implements IGame {
     private ITeamRepo teamRepository;
 
     @Autowired
-    public Game(@Qualifier("crvenaZvezda") ITeam host, @Qualifier("partizan") ITeam guest) {
+    public Game(@Qualifier("crvenaZvezda") ITeam host, @Qualifier("partizan") ITeam guest, ITeamRepo teamRepository) {
         this.host = host;
         this.guest = guest;
-    }
-
-    @PostConstruct
-    public void start() {
-        System.out.println("choosing side");
+        this.teamRepository = teamRepository;
     }
 
     @Override
-    public void play() {
+    public ITeam play() {
+        ITeam winner = null;
         if (Math.random() < 0.5) {
-            System.out.println(host.name() + " won ");
+            winner = host;
         } else {
-            System.out.println(guest.name() + " won ");
+            winner = guest;
         }
+        return winner;
     }
 
-    @PreDestroy
-    public void endGame() {
-        System.out.println("closing");
+    @Override
+    public ITeam update(ITeam team) {
+        teamRepository.delete(team);
+        return teamRepository.save(team);
     }
 
-    @Autowired
-    public void setTeamRepository(ITeamRepo teamRepository) {
-        this.teamRepository = teamRepository;
-    }
+
 }

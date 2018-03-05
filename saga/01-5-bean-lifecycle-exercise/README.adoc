@@ -1,0 +1,15 @@
+== Exercise 05:
+
+Correct `gameProcessing` and `game` bean, and implement a custom post-processor
+so that, once the `BeanLifecycleSpring` is run, the console prints the following:
+
+....
+processing game
+instantiating game
+before init game
+init game
+after init game
+play game
+destroy game
+....
+

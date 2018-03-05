@@ -1,0 +1,5 @@
+== Exercise 02-01
+
+The `IGame` service is extended with `findByName(String name)`.
+Make the positive and negative test for the `findByName`
+method within the `GameStubTest`, by properly implementing the stub instance.

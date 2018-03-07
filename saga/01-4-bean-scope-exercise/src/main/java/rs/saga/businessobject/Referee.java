@@ -1,11 +1,14 @@
 package rs.saga.businessobject;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-01-30
  */
+@Component("ref")
 public class Referee {
 
     private String name;

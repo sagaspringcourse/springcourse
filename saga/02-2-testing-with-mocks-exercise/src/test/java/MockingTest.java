@@ -62,28 +62,4 @@ public class MockingTest {
         gameUnderTest.update(home);
     }
 
-    @Test
-    public void testFindByNameSuccess() {
-        home = new CrvenaZvezda();
-        away = new Partizan();
-        gameUnderTest = new Game(home, away, teamRepo);
-        when(teamRepo.findByName("CrvenaZvezda")).thenReturn(home);
-
-        ITeam found = gameUnderTest.findByName("CrvenaZvezda");
-
-        assertNotNull(found);
-        verify(teamRepo, times(1)).findByName("CrvenaZvezda");
-        assertThat(found.name(), is("CrvenaZvezda"));
-    }
-
-    @Test(expected = TeamNotFoundException.class)
-    public void testFindByNameFailure() {
-        home = new CrvenaZvezda();
-        away = new Partizan();
-        gameUnderTest = new Game(home, away, teamRepo);
-        when(teamRepo.findByName("CrvenaZvezda")).thenThrow(new TeamNotFoundException());
-
-        ITeam found = gameUnderTest.findByName("CrvenaZvezda");
-    }
-
 }

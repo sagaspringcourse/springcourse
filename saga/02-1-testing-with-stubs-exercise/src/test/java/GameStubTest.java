@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 import rs.saga.businessobject.CrvenaZvezda;
 import rs.saga.businessobject.ITeam;
@@ -22,14 +23,23 @@ public class GameStubTest {
     private ITeamRepo teamRepo;
     private IGame gameUnderTest;
 
-    @Test
-    public void testUpdateTeamSuccess() {
+    @Before
+    public void setup() {
         home = new CrvenaZvezda();
         away = new Partizan();
+    }
+
+    @Test
+    public void testUpdateTeamSuccess() {
         teamRepo = new ITeamRepo() {
             @Override
             public boolean delete(ITeam team) throws TeamNotFoundException {
                 return false;
+            }
+
+            @Override
+            public ITeam findByName(String name) throws TeamNotFoundException {
+                return null;
             }
 
             @Override
@@ -45,14 +55,17 @@ public class GameStubTest {
         assertThat(updated.name(), is("CrvenaZvezda"));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TeamNotFoundException.class)
     public void testUpdateTeamFailure() {
-        home = new CrvenaZvezda();
-        away = new Partizan();
         teamRepo = new ITeamRepo() {
             @Override
             public boolean delete(ITeam team) throws TeamNotFoundException {
                 throw new TeamNotFoundException();
+            }
+
+            @Override
+            public ITeam findByName(String name) throws TeamNotFoundException {
+                return null;
             }
 
             @Override
@@ -64,6 +77,56 @@ public class GameStubTest {
         gameUnderTest = new Game(home, away, teamRepo);
 
         gameUnderTest.update(home);
+    }
+
+    @Test
+    public void testFindByNameSuccess() {
+        teamRepo = new ITeamRepo() {
+            @Override
+            public boolean delete(ITeam team) throws TeamNotFoundException {
+                return false;
+            }
+
+            @Override
+            public ITeam findByName(String name) throws TeamNotFoundException {
+                return new CrvenaZvezda();
+            }
+
+            @Override
+            public ITeam save(ITeam team) {
+                return team;
+            }
+        };
+        gameUnderTest = new Game(home, away, teamRepo);
+
+        ITeam updated = gameUnderTest.findByName("CrvenaZvezda");
+
+        assertNotNull(updated);
+        assertThat(updated.name(), is("CrvenaZvezda"));
+    }
+
+    @Test(expected = TeamNotFoundException.class)
+    public void testFindByNameFailure() {
+        teamRepo = new ITeamRepo() {
+            @Override
+            public boolean delete(ITeam team) throws TeamNotFoundException {
+                throw new TeamNotFoundException();
+            }
+
+            @Override
+            public ITeam findByName(String name) throws TeamNotFoundException {
+                throw new TeamNotFoundException() ;
+            }
+
+            @Override
+            public ITeam save(ITeam team) {
+                return team;
+            }
+        };
+
+        gameUnderTest = new Game(home, away, teamRepo);
+
+        gameUnderTest.findByName("");
     }
 
 }

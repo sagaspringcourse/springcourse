@@ -2,6 +2,7 @@ package rs.saga.businessobject;
 
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 /**
@@ -15,9 +16,11 @@ public class Game implements IGame {
         System.out.println("instantiating game");
     }
 
+    @PostConstruct
     public void start() {
         System.out.println("init game");
     }
+
 
     @Override
     public void play() {

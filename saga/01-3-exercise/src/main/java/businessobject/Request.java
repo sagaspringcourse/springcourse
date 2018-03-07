@@ -1,8 +1,8 @@
-package rs.saga.businessobject;
+package businessobject;
 
 import java.util.Date;
 
-public class Request {
+public class Request implements IRequest {
     private Date startAt;
     private Date endAt;
     private String pet;
@@ -13,14 +13,17 @@ public class Request {
         this.pet = pet;
     }
 
+    @Override
     public Date getStartAt() {
         return startAt;
     }
 
+    @Override
     public Date getEndAt() {
         return endAt;
     }
 
+    @Override
     public String getPet() {
         return pet;
     }

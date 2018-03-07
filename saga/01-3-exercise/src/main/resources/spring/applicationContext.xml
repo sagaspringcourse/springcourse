@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="businessobject"/>
+
+    <bean id="request" class="businessobject.Request">
+        <constructor-arg index="0" value="2018/11/11"/>
+        <constructor-arg index="1" value="2018/11/11"/>
+        <constructor-arg index="2" value="Fluffy"/>
+    </bean>
+
+
+    <bean id="operationsService" class="businessobject.SimpleOperationsService">
+        <constructor-arg index="0" ref="request"/>
+        <constructor-arg index="1" ref="response"/>
+    </bean>
+</beans>

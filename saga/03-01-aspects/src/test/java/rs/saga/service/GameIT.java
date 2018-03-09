@@ -29,7 +29,7 @@ public class GameIT {
     @Autowired
     private ITeam away;
     @Autowired
-    private Game gameUnderTest;
+    private IGame gameUnderTest;
     @Autowired
     private ITeamRepo repo;
 

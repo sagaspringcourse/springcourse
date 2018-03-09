@@ -1,0 +1,5 @@
+== Exercise 03-01
+
+Create an `Around` advice that prints to the console the execution time of all the Spring managed beans public methods.
+
+Use `rs.saga.service.TimeExecutionAspectIT.testAdvisedMethods` to assert correctness

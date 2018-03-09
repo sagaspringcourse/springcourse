@@ -1,8 +1,8 @@
 package rs.saga.aspect;
 
-import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class GameAspect {
 
-    @Before("execution(* rs.saga.*..play*(..))")
-    public void playGameAspect(JoinPoint jp) {
-        System.out.println(jp.getSignature().getName() + " method advised");
-        System.out.println("Game started");
+    @Around("execution(* rs.saga.*..play*(..))")
+    public Object playGameAspect(ProceedingJoinPoint joinPoint) throws Throwable {
+        long start = System.currentTimeMillis();
+        Object proceed = joinPoint.proceed();
+        System.out.println("Method  " + joinPoint.getSignature().getName() + " took " + (System.currentTimeMillis() - start));
+        return proceed;
     }
 }

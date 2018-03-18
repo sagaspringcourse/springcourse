@@ -1,3 +1,6 @@
+INSERT INTO S_TEAM(NAME) VALUES ( 'Crvena Zvezda');
+INSERT INTO S_TEAM(NAME) VALUES ( 'Partizan');
+
 INSERT INTO S_PLAYER(FIRST_NAME, LAST_NAME, ADDRESS, USERNAME, PASSWORD, EMAIL) VALUES ( 'Milos', 'Badjevic', 'Novi Beograd', 'milos', 'test', 'milos@saga.rs');
 INSERT INTO S_PLAYER(FIRST_NAME, LAST_NAME, ADDRESS, USERNAME, PASSWORD, EMAIL) VALUES ( 'Ana', 'Dimitrijevic', 'Novi Beograd', 'ana','test', 'ana@saga.rs');
 INSERT INTO S_PLAYER(FIRST_NAME, LAST_NAME, ADDRESS, USERNAME, PASSWORD, EMAIL) VALUES ( 'Manja', 'Miljevic', 'Novi Beograd', 'manja','test', 'manja@saga.rs');

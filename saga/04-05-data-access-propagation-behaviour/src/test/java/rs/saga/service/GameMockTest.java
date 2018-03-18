@@ -5,9 +5,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import rs.saga.businessobject.CrvenaZvezda;
-import rs.saga.businessobject.ITeam;
-import rs.saga.businessobject.Partizan;
+import rs.saga.builder.TeamBuilder;
+import rs.saga.businessobject.Team;
 import rs.saga.dao.ITeamRepo;
 import rs.saga.dao.TeamNotFoundException;
 
@@ -21,20 +20,20 @@ import static org.mockito.Mockito.when;
  * @since 2018-03-08
  */
 public class GameMockTest {
-    private ITeam home;
-    private ITeam away;
+    private Team home;
+    private Team away;
 
     @InjectMocks
-    private Game gameUnderTest;
+    private GameService gameUnderTest;
 
     @Mock
     private ITeamRepo teamRepo;
 
     @Before
     public void setup() {
-        home = new CrvenaZvezda();
-        away = new Partizan();
-        gameUnderTest = new Game(home, away);
+        home = TeamBuilder.getInstance().setName("Crvena Zvezda").createTeam();
+        away = TeamBuilder.getInstance().setName("Partizan").createTeam();
+        gameUnderTest = new GameService();
         MockitoAnnotations.initMocks(this);
     }
 
@@ -46,9 +45,9 @@ public class GameMockTest {
         // initialize with mock
         gameUnderTest.setRepo(teamRepo);
 
-        ITeam updated = gameUnderTest.update(home);
+        Team updated = gameUnderTest.update(home);
 
-        assertEquals("Crvena Zvezda", updated.name());
+        assertEquals("Crvena Zvezda", updated.getName());
     }
 
     @Test(expected = TeamNotFoundException.class)

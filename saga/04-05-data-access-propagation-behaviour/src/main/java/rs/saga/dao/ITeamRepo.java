@@ -1,13 +1,13 @@
 package rs.saga.dao;
 
-import rs.saga.businessobject.ITeam;
+import rs.saga.businessobject.Team;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-03-05
  */
 public interface ITeamRepo {
-    void delete(ITeam team) throws TeamNotFoundException;
+    void delete(Team team) throws TeamNotFoundException;
 
-    ITeam save(ITeam team);
+    Team save(Team team);
 }

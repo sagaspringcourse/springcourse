@@ -1,9 +1,9 @@
 package rs.saga.service;
 
-import rs.saga.businessobject.ITeam;
-import rs.saga.dao.ITeamRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.saga.businessobject.Team;
+import rs.saga.dao.ITeamRepo;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -13,18 +13,9 @@ import javax.annotation.PreDestroy;
  * @since 2018-02-26
  */
 @Service("game")
-public class Game implements IGame {
+public class GameService implements IGameService {
 
-    private ITeam home;
-    private ITeam away;
     private ITeamRepo repo;
-
-    // mandatory dependencies use constructor injection
-    @Autowired
-    public Game(ITeam home, ITeam away) {
-        this.home = home;
-        this.away = away;
-    }
 
     @PostConstruct
     private void preGame() {
@@ -32,11 +23,11 @@ public class Game implements IGame {
     }
 
     @Override
-    public void playGame() {
+    public void playGame(Team home, Team away) {
         if (Math.random() < 0.5) {
-            System.out.println(away.name() + " won");
+            System.out.println(away.getName() + " won");
         } else {
-            System.out.println(home.name() + " won");
+            System.out.println(home.getName() + " won");
         }
     }
 
@@ -53,9 +44,9 @@ public class Game implements IGame {
 
 
     @Override
-    public ITeam update(ITeam team) {
+    public Team update(Team team) {
         repo.delete(team);
-        ITeam updated = repo.save(team);
+        Team updated = repo.save(team);
         return updated;
     }
 }

@@ -2,9 +2,7 @@ package rs.saga.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import rs.saga.businessobject.CrvenaZvezda;
-import rs.saga.businessobject.ITeam;
-import rs.saga.businessobject.Partizan;
+import rs.saga.businessobject.Team;
 import rs.saga.dao.ITeamRepo;
 import rs.saga.dao.TeamNotFoundException;
 
@@ -16,15 +14,15 @@ import static org.junit.Assert.assertEquals;
  */
 public class GameStubTest {
 
-    private ITeam home;
-    private ITeam away;
-    private Game gameUnderTest;
+    private Team home;
+    private Team away;
+    private GameService gameUnderTest;
 
     @Before
     public void setup() {
-        home = new CrvenaZvezda();
-        away = new Partizan();
-        gameUnderTest = new Game(home, away);
+        home = new Team(1l, "Crvena Zvezda");
+        away = new Team(2l, "Partizan");
+        gameUnderTest = new GameService();
     }
 
     @Test
@@ -32,18 +30,18 @@ public class GameStubTest {
         // initialize with stub
         gameUnderTest.setRepo(new ITeamRepo() {
             @Override
-            public void delete(ITeam team) throws TeamNotFoundException {
+            public void delete(Team team) throws TeamNotFoundException {
             }
 
             @Override
-            public ITeam save(ITeam team) {
+            public Team save(Team team) {
                 return team;
             }
         });
 
-        ITeam updated = gameUnderTest.update(home);
+        Team updated = gameUnderTest.update(home);
 
-        assertEquals("Crvena Zvezda", updated.name());
+        assertEquals("Crvena Zvezda", updated.getName());
     }
 
     @Test(expected = TeamNotFoundException.class)
@@ -51,12 +49,12 @@ public class GameStubTest {
         // initialize with stub
         gameUnderTest.setRepo(new ITeamRepo() {
             @Override
-            public void delete(ITeam team) throws TeamNotFoundException {
+            public void delete(Team team) throws TeamNotFoundException {
                 throw new TeamNotFoundException();
             }
 
             @Override
-            public ITeam save(ITeam team) {
+            public Team save(Team team) {
                 return team;
             }
         });

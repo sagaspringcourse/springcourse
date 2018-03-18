@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>saga.rs</groupId>
-    <artifactId>04-06-data-access-hibernate-exercise</artifactId>
+    <artifactId>04-07-data-access-jpa-exercise</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>

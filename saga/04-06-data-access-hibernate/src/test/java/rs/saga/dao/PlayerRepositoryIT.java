@@ -21,7 +21,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import rs.saga.builder.PlayerBuilder;
-import rs.saga.configurationmetada.DataSourceConfig;
+import rs.saga.config.DataSourceConfig;
 import rs.saga.domain.Player;
 
 import javax.sql.DataSource;
@@ -60,11 +60,6 @@ public class PlayerRepositoryIT {
         assertEquals(2, players.size());
     }
 
-    @Test
-    public void findByFirstNameNamed() throws Exception {
-        Set<Player> players = playerRepo.findByFirstNameNamed("Nikola");
-        assertEquals(2, players.size());
-    }
 
     @Configuration
     @Import(DataSourceConfig.class)
@@ -83,7 +78,7 @@ public class PlayerRepositoryIT {
 
         @Bean
         public IPlayerRepo playerRepo(DataSource dataSource) {
-            return new PlayerRepository(jdbcTemplate(dataSource), namedJdbcTemplate(dataSource));
+            return new PlayerRepository(namedJdbcTemplate(dataSource));
         }
 
         @Value("classpath:db/schema.sql")

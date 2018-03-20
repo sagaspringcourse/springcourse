@@ -1,6 +1,6 @@
 package rs.saga.builder;
 
-import rs.saga.businessobject.Team;
+import rs.saga.domain.Team;
 
 public class TeamBuilder {
     private Long id;

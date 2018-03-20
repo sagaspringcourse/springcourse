@@ -2,7 +2,7 @@ package rs.saga.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rs.saga.businessobject.Team;
+import rs.saga.domain.Team;
 import rs.saga.dao.ITeamRepo;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +19,7 @@ public class GameService implements IGameService {
 
     @PostConstruct
     private void preGame() {
-        System.out.println("Choosing side:");
+        System.out.println("Applying post processor");
     }
 
     @Override
@@ -32,8 +32,8 @@ public class GameService implements IGameService {
     }
 
     @PreDestroy
-    public void postGame() {
-        System.out.println("End of the game");
+    private void postGame() {
+        System.out.println("Destroying GameService bean");
     }
 
     // optional dependencies should use setter injection

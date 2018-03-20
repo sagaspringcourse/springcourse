@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class GameAspect {
 
-    @Around("execution(* rs.saga.*..play*(..))")
+    @Around("execution(* rs.saga.service..*(..))")
     public Object playGameAspect(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         Object proceed = joinPoint.proceed();

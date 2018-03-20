@@ -20,8 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
-import rs.saga.configurationmetada.DataSourceConfig;
+import rs.saga.domain.Team;
+import rs.saga.config.DataSourceConfig;
 
 import javax.sql.DataSource;
 

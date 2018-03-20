@@ -2,9 +2,9 @@ package rs.saga.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import rs.saga.businessobject.Team;
 import rs.saga.dao.ITeamRepo;
 import rs.saga.dao.TeamNotFoundException;
+import rs.saga.domain.Team;
 
 import static org.junit.Assert.assertEquals;
 

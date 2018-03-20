@@ -6,9 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
 import rs.saga.dao.ITeamRepo;
 import rs.saga.dao.TeamNotFoundException;
+import rs.saga.domain.Team;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;

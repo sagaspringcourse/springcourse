@@ -1,9 +1,10 @@
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
-import rs.saga.configurationmetada.GameConfig;
+import rs.saga.config.GameConfig;
+import rs.saga.domain.Team;
 import rs.saga.service.IGameService;
+
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>

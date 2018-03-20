@@ -54,9 +54,4 @@ public class HibernatePlayerRepository implements IPlayerRepo {
         return new HashSet<>(players);
     }
 
-    @Override
-    public Set<Player> findByFirstNameNamed(String firstName) {
-        return null;
-    }
-
 }

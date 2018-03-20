@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
+import rs.saga.domain.Team;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

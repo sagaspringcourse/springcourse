@@ -1,4 +1,4 @@
-package rs.saga.businessobject;
+package rs.saga.domain;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>

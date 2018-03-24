@@ -1,21 +1,21 @@
 package rs.saga.service;
 
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
-import rs.saga.configurationmetada.DataSourceConfig;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.transaction.annotation.Transactional;
+import rs.saga.config.DBPopulationConfig;
 import rs.saga.dao.ITeamRepo;
 import rs.saga.dao.TeamNotFoundException;
 import rs.saga.dao.TeamRepository;
+import rs.saga.domain.Team;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,43 +24,41 @@ import static org.junit.Assert.assertEquals;
  * @since 2018-03-08
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ActiveProfiles("dev")
-public class GameIT {
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+@Transactional
+public class GameServiceIT {
 
     @Autowired
     private IGameService gameUnderTest;
-    @Autowired
-    private ITeamRepo repo;
 
     @Test
     public void testUpdateSuccess() {
-        Team partizan = TeamBuilder.getInstance().setName("Partizan").createTeam();
-
-        // setting up data
-        repo.save(partizan);
-
+        Team partizan = new Team("Partizan");
         Team updated = gameUnderTest.update(partizan);
         assertEquals("Partizan", updated.getName());
     }
 
     @Test(expected = TeamNotFoundException.class)
     public void testUpdateFailure() {
-        Team partizan = TeamBuilder.getInstance().setName("Someting new").createTeam();
+        Team partizan = new Team("Someting new");
         gameUnderTest.update(partizan);
     }
 
+
     @Configuration
-    @Import(DataSourceConfig.class)
-    static class TestGameConfig {
+    @Import(DBPopulationConfig.class)
+    static class TestConfig {
         @Bean
-        public IGameService game() {
-            return new GameService();
+        public IGameService gameRepo(ITeamRepo teamRepo) {
+            GameService gameService = new GameService();
+            gameService.setRepo(teamRepo);
+            return gameService;
         }
 
         @Bean
-        public ITeamRepo teamRepo(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-            return new TeamRepository(namedParameterJdbcTemplate);
+        public ITeamRepo teamRepo() {
+            return new TeamRepository();
         }
     }
+
 }

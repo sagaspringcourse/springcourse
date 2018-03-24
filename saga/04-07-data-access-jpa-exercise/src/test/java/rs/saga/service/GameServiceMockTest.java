@@ -5,10 +5,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
 import rs.saga.dao.ITeamRepo;
 import rs.saga.dao.TeamNotFoundException;
+import rs.saga.domain.Team;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
@@ -19,7 +18,7 @@ import static org.mockito.Mockito.when;
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-03-08
  */
-public class GameMockTest {
+public class GameServiceMockTest {
     private Team home;
     private Team away;
 
@@ -31,8 +30,8 @@ public class GameMockTest {
 
     @Before
     public void setup() {
-        home = TeamBuilder.getInstance().setName("Crvena Zvezda").createTeam();
-        away = TeamBuilder.getInstance().setName("Partizan").createTeam();
+        home = new Team("Crvena Zvezda");
+        away = new Team("Partizan");
         gameUnderTest = new GameService();
         MockitoAnnotations.initMocks(this);
     }

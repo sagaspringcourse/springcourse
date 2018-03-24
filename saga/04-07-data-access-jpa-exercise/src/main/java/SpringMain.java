@@ -1,8 +1,7 @@
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
-import rs.saga.configurationmetada.GameConfig;
+import rs.saga.config.GameConfig;
+import rs.saga.domain.Team;
 import rs.saga.service.IGameService;
 
 /**
@@ -14,9 +13,9 @@ public class SpringMain {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(GameConfig.class);
 
-        IGameService game = applicationContext.getBean("game", IGameService.class);
-        Team zvezda = TeamBuilder.getInstance().setName("Crvena Zvezda").createTeam();
-        Team partizan = TeamBuilder.getInstance().setName("Partizan").createTeam();
+        IGameService game = applicationContext.getBean("gameService", IGameService.class);
+        Team zvezda = new Team("Crvena Zvezda");
+        Team partizan = new Team("Partizan");
         game.playGame(zvezda, partizan);
     }
 }

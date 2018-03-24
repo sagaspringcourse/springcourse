@@ -1,17 +1,15 @@
 package rs.saga.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
+import rs.saga.domain.Team;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
@@ -20,52 +18,43 @@ import java.util.Map;
 @Repository
 public class TeamRepository implements ITeamRepo {
 
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired
-    public TeamRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public void delete(Team team) throws TeamNotFoundException {
-        TeamRowMapper<Team> rowMapper = new TeamRowMapper<>();
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", team.getName());
-        try {
-            namedParameterJdbcTemplate.queryForObject("SELECT * FROM s_team WHERE name = :name", params, rowMapper);
-        } catch (EmptyResultDataAccessException erdae) {
-           throw new TeamNotFoundException();
+        team = findTeam(team);
+        if (team == null) {
+            throw new TeamNotFoundException();
         }
-        namedParameterJdbcTemplate.update("DELETE FROM s_team WHERE name = :name", params);
+        entityManager.remove(team);
+    }
+
+    @Override
+    public Team findByName(String name) {
+        Team team = findTeam(new Team(name));
+        return team;
     }
 
     @Override
     public Team save(Team team) {
-        Team saved = null;
-        TeamRowMapper<Team> rowMapper = new TeamRowMapper<>();
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", team.getName());
+        Team found = findTeam(team);
+        if (found != null) {
+            entityManager.remove(found);
+        }
+        entityManager.persist(team);
+        return team;
+    }
+
+    private Team findTeam(Team team) {
         try {
-            saved = namedParameterJdbcTemplate.queryForObject("SELECT * FROM s_team WHERE name = :name", params, rowMapper);
-        } catch (EmptyResultDataAccessException erdae) {
-            // ignore for now
+            javax.persistence.Query query = entityManager.createQuery("FROM Team t WHERE t.name = :name");
+            query.setParameter("name", team.getName());
+            team = (Team) query.getSingleResult();
+        } catch (Exception e) {
+            team = null;
         }
-        if (saved == null) {
-            namedParameterJdbcTemplate.update("INSERT INTO s_team(NAME) VALUES(:name)", params);
-            saved = namedParameterJdbcTemplate.queryForObject("SELECT * FROM s_team WHERE name = :name", params, rowMapper);
-        }
-        return saved;
+        return team;
     }
 
-    static class TeamRowMapper<T> implements RowMapper<Team> {
-
-        @Override
-        public Team mapRow(ResultSet rs, int rowNum) throws SQLException {
-            TeamBuilder teamBuilder = new TeamBuilder();
-            teamBuilder.setName(rs.getString("NAME"));
-            teamBuilder.setId(rs.getLong("ID"));
-            return teamBuilder.createTeam();
-        }
-    }
 }

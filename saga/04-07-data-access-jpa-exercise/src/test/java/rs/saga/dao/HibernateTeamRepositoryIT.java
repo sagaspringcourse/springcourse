@@ -1,6 +1,6 @@
 package rs.saga.dao;
 
-import org.junit.Before;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,46 +9,42 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
-import rs.saga.builder.PlayerBuilder;
 import rs.saga.config.DBPopulationConfig;
-import rs.saga.domain.Player;
+import rs.saga.domain.Team;
 
-import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-03-15
  */
-@ContextConfiguration
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringRunner.class)
 @Transactional
-public class PlayerRepositoryIT {
+public class HibernateTeamRepositoryIT {
 
     @Autowired
-    private IPlayerRepo playerRepo;
-
-    @Before
-    public void setUp() throws Exception {
-        assertNotNull(playerRepo);
-    }
+    private ITeamRepo teamRepo;
 
     @Test
     public void save() throws Exception {
-        Player nino = new PlayerBuilder().setFirstName("Nikola").setLastName("Ninovic").setEmail("nikola.n@saga.rs").createPlayer();
-        int returnCode = playerRepo.save(nino);
-        assertNotNull(returnCode);
+        teamRepo.save(new Team("Buducnost"));
+        Team buducnost = teamRepo.findByName("Buducnost");
+
+        // asserting saving by checking that ID is generated and assigned
+        assertNotNull(buducnost.getId());
     }
 
     @Test
-    public void findByFirstName() throws Exception {
-        Set<Player> players = playerRepo.findByFirstName("Nikola");
-        assertEquals(2, players.size());
+    public void findByName() throws Exception {
+        Team partizan = teamRepo.findByName("Partizan");
+
+        assertNotNull(partizan.getId());
     }
+
 
     @Configuration
     @Import(DBPopulationConfig.class)
@@ -56,8 +52,10 @@ public class PlayerRepositoryIT {
     static class TestConfig {
 
         @Bean
-        public IPlayerRepo playerRepo() {
-            return new PlayerRepository();
+        public ITeamRepo teamRepo() {
+            return new TeamRepository();
         }
+
     }
+
 }

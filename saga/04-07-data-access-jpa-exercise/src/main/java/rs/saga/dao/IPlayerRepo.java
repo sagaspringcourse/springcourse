@@ -12,8 +12,6 @@ import java.util.Set;
  */
 public interface IPlayerRepo {
 
-    Set<Player> findByFirstNameNamed(String firstName);
-
     int save(Player player) throws SQLException;
 
     Set<Player> findByFirstName(String firstName) throws SQLException;

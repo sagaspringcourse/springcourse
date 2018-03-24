@@ -1,4 +1,4 @@
-package rs.saga.configurationmetada;
+package rs.saga.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
  * @since 2018-02-26
  */
 @Configuration
-@ComponentScan(basePackages = {"rs.saga.dao", "rs.saga.service", "rs.saga.businessobject", "rs.saga.aspect"})
+@ComponentScan(basePackages = {"rs.saga.dao", "rs.saga.service"})
 @Import(DataSourceConfig.class)
 @EnableAspectJAutoProxy
 public class GameConfig {

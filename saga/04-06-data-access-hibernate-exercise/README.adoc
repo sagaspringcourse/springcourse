@@ -1,3 +1,5 @@
 == Exercise 04-06
 
-Make `Team` a Hibernate managed `Entity`. Make `rs.saga.dao.HibernatePlayerRepositoryIT` green
+Make `Team` a Hibernate managed `Entity`.
+
+Make `rs.saga.dao.HibernateTeamRepositoryIT` green

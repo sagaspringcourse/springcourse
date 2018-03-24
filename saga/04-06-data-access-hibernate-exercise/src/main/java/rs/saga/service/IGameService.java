@@ -1,6 +1,6 @@
 package rs.saga.service;
 
-import rs.saga.businessobject.Team;
+import rs.saga.domain.Team;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>

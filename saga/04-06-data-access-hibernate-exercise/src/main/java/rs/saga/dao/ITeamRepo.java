@@ -1,6 +1,6 @@
 package rs.saga.dao;
 
-import rs.saga.businessobject.Team;
+import rs.saga.domain.Team;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
@@ -8,6 +8,8 @@ import rs.saga.businessobject.Team;
  */
 public interface ITeamRepo {
     void delete(Team team) throws TeamNotFoundException;
+
+    Team findByName(String buducnost);
 
     Team save(Team team);
 }

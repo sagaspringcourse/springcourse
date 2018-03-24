@@ -1,17 +1,19 @@
-package rs.saga.configurationmetada;
+package rs.saga.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
@@ -19,22 +21,8 @@ import javax.sql.DataSource;
  */
 @Configuration
 @PropertySource("classpath:db/datasource.properties")
+@EnableTransactionManagement
 public class DataSourceConfig {
-
-    @Bean
-    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
-        return new NamedParameterJdbcTemplate(mysqlDataSource());
-    }
-
-    @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(mysqlDataSource());
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(mysqlDataSource());
-    }
 
 
     // Beans implementing BeanFactoryPostProcessor must use static modifier inside the Java Configuration
@@ -62,5 +50,32 @@ public class DataSourceConfig {
         mysqlDS.setUrl(mysqlUrl);
         return mysqlDS;
     }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(mysqlDataSource());
+    }
+
+    @Bean
+    public Properties hibernateProperties() {
+        Properties hibernateProp = new Properties();
+        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        hibernateProp.put("hibernate.hbm2ddl.auto", "create-drop");
+        hibernateProp.put("hibernate.format_sql", true);
+        hibernateProp.put("hibernate.use_sql_comments", true);
+        hibernateProp.put("hibernate.show_sql", true);
+        return hibernateProp;
+    }
+
+    @Bean
+    public SessionFactory sessionFactory(DataSource dataSource) {
+        SessionFactory sessionFactory = new LocalSessionFactoryBuilder(dataSource)
+                .scanPackages("rs.saga.domain")
+                .addProperties(hibernateProperties())
+                .buildSessionFactory();
+
+        return sessionFactory;
+    }
+
 
 }

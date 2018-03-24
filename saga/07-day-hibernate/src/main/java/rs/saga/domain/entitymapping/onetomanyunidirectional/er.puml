@@ -1,0 +1,34 @@
+@startuml
+' uncomment the line below if you're using computer with a retina display
+' skinparam dpi 300
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+' we use bold for primary key
+' green color for unique
+' and underscore for not_null
+!define primary_key(x) <b>x</b>
+!define unique(x) <color:green>x</color>
+!define not_null(x) <u>x</u>
+' other tags available:
+' <i></i>
+' <back:COLOR></color>, where color is a color name or html color code
+' (#FFAACC)
+' see: http://plantuml.com/classes.html#More
+hide methods
+hide stereotypes
+
+' entities
+
+Table(user, "s_team") {
+primary_key(id)         BIGINT
+NAME   VARCHAR[255]
+}
+
+Table(user_group, "s_player") {
+
+primary_key(user_id)   INTEGER
+primary_key(group_id) INTEGER
+joined_at DATETIME
+}
+
+user "1" -right-> "0..N" user_group : "    "
+@enduml

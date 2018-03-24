@@ -1,0 +1,3 @@
+== Exercise 04-01
+
+Add a test and a method `findAll` to `PlayerRepository` that returns all Players and asserts that the number of players is as expected

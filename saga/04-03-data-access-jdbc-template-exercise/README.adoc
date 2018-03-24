@@ -1,0 +1,3 @@
+== Exercise 04-03
+
+Using JDBC Template write `countPlayers` and `findIdByUsername` methods in `PlayerRepository`. Test the methods, by writing the appropriate tests in `PlayerRepositoryIT` class.

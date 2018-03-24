@@ -1,0 +1,3 @@
+== Exercise 04-08
+
+Implement Spring Data JPA TeamRepository and make the `rs.saga.dao.SpringDataJPATeamRepositoryIT` pass

@@ -1,0 +1,3 @@
+== Exercise 04-02
+
+Fix the test and the method `findByName` in `PlayerRepositoryIT` so that the `testFindByName` is passing

@@ -3,6 +3,7 @@ package rs.saga.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -12,10 +13,11 @@ import javax.sql.DataSource;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
- * @since 2018-03-18
+ * @since 2018-03-24
  */
+@Import(DataSourceConfig.class)
 @Configuration
-public class DBTestDataConfig {
+public class DBPopulationConfig {
 
     @Value("classpath:db/schema.sql")
     private Resource schemaScript;

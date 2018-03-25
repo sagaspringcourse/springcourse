@@ -2,8 +2,9 @@ package rs.saga.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rs.saga.businessobject.Team;
+import org.springframework.transaction.annotation.Transactional;
 import rs.saga.dao.ITeamRepo;
+import rs.saga.domain.Team;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,7 +13,8 @@ import javax.annotation.PreDestroy;
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-02-26
  */
-@Service("game")
+@Service
+@Transactional
 public class GameService implements IGameService {
 
     private ITeamRepo repo;
@@ -32,7 +34,7 @@ public class GameService implements IGameService {
     }
 
     @PreDestroy
-    public void postGame() {
+    private void postGame() {
         System.out.println("End of the game");
     }
 

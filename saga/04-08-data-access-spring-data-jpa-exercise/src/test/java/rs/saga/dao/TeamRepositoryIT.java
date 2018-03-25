@@ -1,25 +1,20 @@
 package rs.saga.dao;
 
-import org.junit.Before;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
-import rs.saga.builder.TeamBuilder;
-import rs.saga.businessobject.Team;
-import rs.saga.config.DBTestDataConfig;
-import rs.saga.configurationmetada.DataSourceConfig;
-
-import javax.sql.DataSource;
+import rs.saga.config.DBPopulationConfig;
+import rs.saga.domain.Team;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -27,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-03-15
  */
-@ContextConfiguration
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringRunner.class)
 @Transactional
 public class TeamRepositoryIT {
@@ -35,36 +30,27 @@ public class TeamRepositoryIT {
     @Autowired
     private ITeamRepo teamRepo;
 
-    @Before
-    public void setUp() throws Exception {
-        assertNotNull(teamRepo);
+    @Test
+    public void save() throws Exception {
+        Team team = teamRepo.save(new Team("Buducnost"));
+        Team buducnost = teamRepo.findByName("Buducnost");
+
+        // asserting saving by checking that ID is generated and assigned
+        assertNotNull(buducnost.getId());
     }
 
     @Test
-    public void save() throws Exception {
-        Team zvezda = new TeamBuilder().setName("Crvena Zvezda").createTeam();
-        Team saved = teamRepo.save(zvezda);
-        assertNotNull(saved);
+    public void findByName() throws Exception {
+        Team partizan = teamRepo.findByName("Partizan");
+
+        assertNotNull(partizan.getId());
     }
 
+
     @Configuration
-    @Import(value = {DataSourceConfig.class, DBTestDataConfig.class})
-    @EnableTransactionManagement
+    @EnableJpaRepositories
+    @Import(DBPopulationConfig.class)
     static class TestConfig {
-
-        @Bean
-        public NamedParameterJdbcTemplate namedJdbcTemplate(DataSource dataSouce) {
-            return new NamedParameterJdbcTemplate(dataSouce);
-        }
-
-        @Bean
-        public TeamRepository teamRepo(DataSource dataSource) {
-            return new TeamRepository(namedJdbcTemplate(dataSource));
-        }
-        @Bean
-        public PlatformTransactionManager transactionManager(DataSource dataSource) {
-            return new DataSourceTransactionManager(dataSource);
-        }
     }
 
 }

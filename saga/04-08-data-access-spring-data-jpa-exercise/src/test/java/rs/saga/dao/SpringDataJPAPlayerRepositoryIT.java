@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -35,10 +36,10 @@ import static org.junit.Assert.assertNotNull;
 @ContextConfiguration
 @RunWith(SpringRunner.class)
 @Transactional
-public class JPAPlayerRepositoryIT {
+public class SpringDataJPAPlayerRepositoryIT {
 
     @Autowired
-    private IPlayerRepo playerRepo;
+    private SpringDataJPAPlayerRepo playerRepo;
 
     @Before
     public void setUp() throws Exception {
@@ -48,8 +49,8 @@ public class JPAPlayerRepositoryIT {
     @Test
     public void save() throws Exception {
         Player nino = new PlayerBuilder().setFirstName("Nikola").setLastName("Ninovic").setEmail("nikola.n@saga.rs").createPlayer();
-        int returnCode = playerRepo.save(nino);
-        assertNotNull(returnCode);
+        Player saved = playerRepo.save(nino);
+        assertNotNull(saved.getId());
     }
 
     @Test
@@ -58,15 +59,18 @@ public class JPAPlayerRepositoryIT {
         assertEquals(2, players.size());
     }
 
+    @Test
+    public void findByFirstNameAndLastName() throws Exception {
+        Set<Player> players = playerRepo.findByFirstNameAndLastName("Nikola", "Stankovic");
+        assertEquals(1, players.size());
+    }
+
+
     @Configuration
     @Import(value = {DataSourceConfig.class, DBTestDataConfig.class})
     @EnableTransactionManagement
+    @EnableJpaRepositories
     static class TestConfig {
-
-        @Bean
-        public IPlayerRepo playerRepo() {
-            return new JPAPlayerRepository();
-        }
 
         @Bean
         public Properties hibernateProperties() {

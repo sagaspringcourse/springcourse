@@ -1,0 +1,3 @@
+== Exercise 07-03
+a) Map an unidirectional one-to-many relationship and make the test pass
+b) Map a bidirectional one-to-many relationship and make the test pass

@@ -9,6 +9,6 @@ import rs.saga.domain.Team;
  */
 public interface ITeamRepo extends JpaRepository<Team, Long> {
 
-    Team findByName(String buducnost);
+    Team findByName(String team);
 
 }

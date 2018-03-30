@@ -1,12 +1,11 @@
 package rs.saga.dao;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import rs.saga.domain.Credentials;
+import rs.saga.domain.Skill;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
- * @since 2018-03-15
+ * @since 2018-03-30
  */
-public interface ICredentialRepo extends JpaRepository<Credentials, Long> {
+public interface ISkillRepo extends JpaRepository<Skill, Long> {
 }

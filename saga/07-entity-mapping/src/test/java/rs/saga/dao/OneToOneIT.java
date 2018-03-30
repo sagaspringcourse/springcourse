@@ -1,5 +1,6 @@
 package rs.saga.dao;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import rs.saga.builder.PlayerBuilder;
 import rs.saga.config.DataSourceConfig;
+import rs.saga.domain.Credentials;
 import rs.saga.domain.Player;
-import rs.saga.domain.Team;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
@@ -23,35 +26,41 @@ import static org.junit.Assert.assertNotNull;
 @ContextConfiguration
 @RunWith(SpringRunner.class)
 @Transactional
-public class TeamRepositoryIT {
+public class OneToOneIT {
 
     @Autowired
-    private ITeamRepo teamRepo;
+    private IPlayerRepo playerRepo;
 
-    @Test
-    public void save() throws Exception {
-        Player nino = new PlayerBuilder().setFirstName("Nikola").setLastName("Ninovic").setEmail("nikola.n@saga.rs").createPlayer();
-        Player slave = new PlayerBuilder().setFirstName("Slavisa").setLastName("Avramovic").setEmail("nikola.n@saga.rs").createPlayer();
-        Team buducnost = new Team("Buducnost");
+    @Autowired
+    private ICredentialsRepo credentialsRepo;
 
-        buducnost.getPlayers().add(nino);
-        buducnost.getPlayers().add(slave);
-
-        teamRepo.save(buducnost);
+    @Before
+    public void setUp() throws Exception {
+        assertNotNull(playerRepo);
     }
 
     @Test
-    public void findByName() throws Exception {
-        Team partizan = teamRepo.findByName("Partizan");
+    public void testOneToOneBidirectional() throws Exception {
+        Credentials credentials = new Credentials();
+        credentials.setPassword("pass");
+        credentials.setUsername("ninovic.n");
 
-        assertNotNull(partizan.getId());
+        Player nino = PlayerBuilder.getInstance().nino().createPlayer();
+        credentials.setPlayer(nino);
+        nino.setCredentials(credentials);
+
+        credentialsRepo.save(credentials);
+
+        assertNotNull(nino.getId());
+
+        nino = playerRepo.findOne(nino.getId());
+        assertThat(nino.getCredentials().getUsername(), is("ninovic.n"));
     }
-
 
     @Configuration
-    @EnableJpaRepositories
     @Import(DataSourceConfig.class)
+    @EnableJpaRepositories
     static class TestConfig {
-    }
 
+    }
 }

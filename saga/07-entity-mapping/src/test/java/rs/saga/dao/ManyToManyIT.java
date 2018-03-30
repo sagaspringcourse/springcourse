@@ -13,11 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import rs.saga.builder.PlayerBuilder;
 import rs.saga.config.DataSourceConfig;
 import rs.saga.domain.Player;
+import rs.saga.domain.Skill;
 
-import java.util.Set;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.TestCase.assertTrue;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
@@ -26,28 +29,44 @@ import static org.junit.Assert.assertNotNull;
 @ContextConfiguration
 @RunWith(SpringRunner.class)
 @Transactional
-public class PlayerRepositoryIT {
+public class ManyToManyIT {
 
     @Autowired
     private IPlayerRepo playerRepo;
+
+    @Autowired
+    private ISkillRepo skillRepo;
 
     @Before
     public void setUp() throws Exception {
         assertNotNull(playerRepo);
     }
 
-    @Test
-    public void save() throws Exception {
-        Player nino = PlayerBuilder.getInstance().nino().createPlayer();
-        Player player = playerRepo.save(nino);
-        assertNotNull(player.getId());
-    }
 
     @Test
-    public void findByFirstName() throws Exception {
-        playerRepo.save(PlayerBuilder.getInstance().nino().createPlayer());
-        Set<Player> players = playerRepo.findByFirstName("Nikola");
-        assertEquals(1, players.size());
+    public void testManyToManyBidirectional() throws Exception {
+        Player nino = PlayerBuilder.getInstance().nino().createPlayer();
+
+        Skill defense = new Skill("defense", 50);
+        Skill offense = new Skill("offense", 100);
+
+        nino.getSkills().add(defense);
+        nino.getSkills().add(offense);
+
+        // managing the inverse side
+        defense.getPlayers().add(nino);
+        offense.getPlayers().add(nino);
+
+        playerRepo.save(nino);
+
+        // accessing an owning side through the inverse side
+        List<Skill> allSkills = skillRepo.findAll();
+        assertNotNull(allSkills);
+        assertTrue(allSkills.size() == 2);
+
+        List<Player> players = allSkills.iterator().next().getPlayers();
+        assertThat(players.size(), is(1));
+        assertThat(players.iterator().next().getFirstName(), is("Nikola"));
     }
 
     @Configuration

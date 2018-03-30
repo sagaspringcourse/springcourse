@@ -30,8 +30,10 @@ public class Player {
 
     @Column(name = "FIRST_NAME")
     private String firstName;
+
     @Column(name = "LAST_NAME")
     private String lastName;
+
     @Column(name = "ADDRESS")
     private String address;
     @Column(name = "EMAIL")
@@ -46,8 +48,8 @@ public class Player {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "PLAYER_SKILL",
-            joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "SKILL_ID", referencedColumnName = "ID")
+        joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "ID"),
+        inverseJoinColumns = @JoinColumn(name = "SKILL_ID", referencedColumnName = "ID")
     )
     private List<Skill> skills = new ArrayList<>();
 

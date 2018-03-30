@@ -12,25 +12,27 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
- * @since 2018-03-01
+ * @since 2018-03-30
  */
-@Entity
 @Table(name = "s_skill")
+@Entity
 public class Skill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Long id;
 
     @Column(name = "TYPE")
     private String type;
-
     @Column(name = "VALUE")
     private Integer value;
-
     @ManyToMany(mappedBy = "skills")
     private List<Player> players = new ArrayList<>();
+
+    public Skill(String type, Integer value) {
+        this.type = type;
+        this.value = value;
+    }
 
     public Skill() {
     }
@@ -63,7 +65,7 @@ public class Skill {
         return players;
     }
 
-    public void setPlayers(List<Player> player) {
-        this.players = player;
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 }

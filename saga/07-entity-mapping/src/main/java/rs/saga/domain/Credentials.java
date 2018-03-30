@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @since 2018-03-01
  */
 @Entity
-@Table(name = "s_credential")
+@Table(name = "s_credentials")
 public class Credentials {
 
     @Id
@@ -25,15 +25,15 @@ public class Credentials {
 
     @Column(name = "USERNAME")
     private String username;
+
     @Column(name = "PASSWORD")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PLAYER_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "PLAYER_ID", referencedColumnName = "ID", nullable = false)
     private Player player;
 
     public Credentials() {
-
     }
 
     public Long getId() {
@@ -51,7 +51,6 @@ public class Credentials {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public String getPassword() {
         return password;

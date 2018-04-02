@@ -1,0 +1,3 @@
+== Exercise 08-01
+
+Complete the TODOs in `JPAPlayerStateTransitionIT` and `HibernateTeamStateTransitionIT`

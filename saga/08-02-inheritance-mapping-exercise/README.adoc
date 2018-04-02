@@ -1,0 +1,6 @@
+== 08-02 - Inheritance Mapping Exercise
+
+. Add a missing mapping on `Game` class in order to configure `SINGLE_TABLE` inheritance strategy
+. Change configuration on `Game` class in order to configure `TABLE_PER_CLASS` inheritance strategy
+. Change configuration on `Game` class in order to configure `JOINED` inheritance strategy
+. Change configuration on `Game` class in order to configure `@MappedSuperClass` inheritance strategy

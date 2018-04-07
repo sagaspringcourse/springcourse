@@ -47,8 +47,5 @@ public class JPAPlayerRepository implements IPlayerStateTransitionRepo {
         return entityManager.contains(player);
     }
 
-    @Override
-    public Player get(Long playerId) {
-        return entityManager.find(Player.class, playerId);
-    }
+
 }

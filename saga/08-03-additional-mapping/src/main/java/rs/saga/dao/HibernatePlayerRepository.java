@@ -52,4 +52,8 @@ public class HibernatePlayerRepository implements IPlayerStateTransitionRepo {
         return getSession().contains(player);
     }
 
+    @Override
+    public Player get(Long playerId) {
+        return getSession().get(Player.class, playerId);
+    }
 }

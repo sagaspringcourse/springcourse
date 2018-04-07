@@ -1,12 +1,12 @@
 package rs.saga.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import rs.saga.domain.Player;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
@@ -14,24 +14,19 @@ import rs.saga.domain.Player;
  */
 @Repository
 @Transactional
-@Profile("hibernate")
-public class HibernatePlayerRepository implements IPlayerStateTransitionRepo {
+@Profile("jpa")
+public class JPAPlayerRepository implements IPlayerStateTransitionRepo {
 
-    private SessionFactory sessionFactory;
+    private EntityManager entityManager;
 
-    @Autowired
-    public HibernatePlayerRepository(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
+    @PersistenceContext
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
     public void remove(Player nino) {
-        getSession().remove(nino);
+        entityManager.remove(nino);
     }
 
 
@@ -39,7 +34,7 @@ public class HibernatePlayerRepository implements IPlayerStateTransitionRepo {
     public int save(Player player) {
         int sqlCode = 0;
         try {
-            getSession().save(player);
+            entityManager.persist(player);
         } catch (Exception e) {
             sqlCode = 1;
         }
@@ -49,7 +44,11 @@ public class HibernatePlayerRepository implements IPlayerStateTransitionRepo {
 
     @Override
     public Boolean isManaged(Player player) {
-        return getSession().contains(player);
+        return entityManager.contains(player);
     }
 
+    @Override
+    public Player get(Long playerId) {
+        return entityManager.find(Player.class, playerId);
+    }
 }

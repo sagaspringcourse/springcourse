@@ -9,6 +9,8 @@ import rs.saga.domain.Player;
  */
 public interface IPlayerStateTransitionRepo {
 
+    Player get(Long playerId);
+
     void remove(Player nino);
 
     int save(Player player);

@@ -1,0 +1,3 @@
+== Exercise 09-03
+
+Use JPA Criteria API and select all female players younger than 28, and all the male player older or equal to 28

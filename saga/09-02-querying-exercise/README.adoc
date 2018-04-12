@@ -1,0 +1,5 @@
+== Exercise 09-02
+
+Execute queries that will find all teams that have at least one player with first name 'Nikola'
+
+Make sure that the tests pass

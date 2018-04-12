@@ -55,7 +55,7 @@ public class JPAPlayerRepository implements IPlayerRepo {
 
         Path<Integer> age = root.get("age");
 
-        criteria.select(root).where(cb.and(cb.between(age, 28, 30)));
+        criteria.select(root).where(cb.between(age, 28, 30));
 
         TypedQuery<Player> all = em.createQuery(criteria);
 

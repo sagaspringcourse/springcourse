@@ -1,17 +1,12 @@
 package rs.saga.domain;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,29 +22,17 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public enum SKILL_TYPE {
-        OFFENSE, DEFENSE
-    }
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "TYPE")
-    private SKILL_TYPE type;
+    private String type;
+    @Column(name = "VALUE")
+    private Integer value;
+    @ManyToMany(mappedBy = "skills")
+    private List<Player> players = new ArrayList<>();
 
-    @Basic
-    @Temporal(TemporalType.DATE)
-    private java.util.Date birthDate;
-
-
-    public Skill(SKILL_TYPE type, Integer value) {
+    public Skill(String type, Integer value) {
         this.type = type;
         this.value = value;
     }
-
-    @Column(name = "VALUE")
-    private Integer value;
-
-    @ManyToMany(mappedBy = "skills")
-    private List<Player> players = new ArrayList<>();
 
     public Skill() {
     }
@@ -62,11 +45,11 @@ public class Skill {
         this.id = id;
     }
 
-    public SKILL_TYPE getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(SKILL_TYPE type) {
+    public void setType(String type) {
         this.type = type;
     }
 

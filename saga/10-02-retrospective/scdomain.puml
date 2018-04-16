@@ -37,10 +37,6 @@ Table(item, "ITEM\n(an item representing purchased\n product in a shopping cart)
 ' user "1" --> "*" user_group : "A user may be \nin many groups"
 ' group "1" --> "0..N" user_group : "A group may \ncontain many users"
 
-sc -->"1" user
-sc -->"1..N" item
-cred -->"1" user
-item -->"1" sc
-item ->"1" product
+
 
 @enduml

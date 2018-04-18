@@ -1,0 +1,4 @@
+== Exercise 11-03
+
+Build a `player.jsp` view add a `findPlayer` method that responds to `player\{id}` request and returns `player` view
+ that shows player details

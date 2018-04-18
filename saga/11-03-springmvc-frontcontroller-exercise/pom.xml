@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>saga.rs</groupId>
-    <artifactId>10-03-spring-mvc</artifactId>
+    <artifactId>11-03-springmvc-frontcontroller-exercise</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 

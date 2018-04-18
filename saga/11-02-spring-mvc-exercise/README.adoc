@@ -1,0 +1,6 @@
+== Exercise 11-03
+
+Implement a `listPlayers` handler method in `PlayerController`, that finds all players, adds them to the model and returns `player/list` view.
+Start up the server, and type `/player/list` in the browser.
+
+Make sure all the players are listed

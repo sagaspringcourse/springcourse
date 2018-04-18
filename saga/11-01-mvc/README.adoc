@@ -1,0 +1,4 @@
+== Exercise 11-01
+
+Send a `hello\player\1` GET request. Parse the request URI (hint: `use javax.servlet.http.HttpServletRequest.getRequestURI`
+and find the player with the `id` equals to `1`

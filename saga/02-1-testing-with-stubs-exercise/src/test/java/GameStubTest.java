@@ -33,6 +33,11 @@ public class GameStubTest {
             }
 
             @Override
+            public ITeam findByName(String name) throws TeamNotFoundException {
+                return null;
+            }
+
+            @Override
             public ITeam save(ITeam team) {
                 return team;
             }
@@ -53,6 +58,11 @@ public class GameStubTest {
             @Override
             public boolean delete(ITeam team) throws TeamNotFoundException {
                 throw new TeamNotFoundException();
+            }
+
+            @Override
+            public ITeam findByName(String name) throws TeamNotFoundException {
+                return null;
             }
 
             @Override

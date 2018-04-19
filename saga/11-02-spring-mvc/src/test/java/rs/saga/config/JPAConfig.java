@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -22,13 +23,14 @@ import java.util.Properties;
 @PropertySource("classpath:db/datasource.properties")
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories("rs.saga.dao")
 public class JPAConfig {
 
     @Value("${driverClassName}")
     private String driverClassName;
     @Value("${url}")
     private String url;
-    @Value("${username}")
+    @Value("${musername}")
     private String username;
     @Value("${password}")
     private String password;
@@ -46,7 +48,7 @@ public class JPAConfig {
     @Bean
     public Properties hibernateProperties() {
         Properties hibernateProp = new Properties();
-        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.MySQL57InnoDBDialect");
         hibernateProp.put("hibernate.hbm2ddl.auto", "create");
         hibernateProp.put("hibernate.format_sql", true);
         hibernateProp.put("hibernate.use_sql_comments", true);

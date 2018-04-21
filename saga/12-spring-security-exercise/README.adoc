@@ -1,0 +1,4 @@
+== Exercise 12-01
+Add new user with arbitrary username/password
+Add new role `PLAYER`
+Protect `show` view so that only the user with `PLAYER` and `ADMIN` role can access it

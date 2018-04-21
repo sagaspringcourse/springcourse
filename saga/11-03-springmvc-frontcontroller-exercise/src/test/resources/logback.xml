@@ -9,7 +9,6 @@
 
     # File appender
     <appender name="fout" class="ch.qos.logback.core.FileAppender">
-        <file>spring.log</file>
         <append>false</append>
         <encoder>
             # Pattern of log message for file appender

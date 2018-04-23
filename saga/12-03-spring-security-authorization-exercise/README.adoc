@@ -1,0 +1,3 @@
+== 12-03 Exercise
+
+Authorize player list view for users with role `ADMIN` or Principal's username `ninovic.n`

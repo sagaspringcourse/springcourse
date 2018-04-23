@@ -1,0 +1,3 @@
+== 12-01 Exercise
+
+Grant `ADMIN` authority to all the authenticated users

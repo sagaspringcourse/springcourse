@@ -1,15 +1,14 @@
 <%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>
-        <spring:message code="home.title"/>
+        <spring:message code="home.title" />
     </title>
     <spring:theme var="cssStyle" code="css.style"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="${cssStyle}" />"/>
@@ -58,24 +57,13 @@
                     <a href="<c:url value="/"/>"><spring:message code="menu.home"/></a>
                 </c:if>
             </li>
-            <li>
-                <c:if test="${menuTab eq 'players'}">
-                   <strong><a href="<c:url value="/players/list"/>"><spring:message code="menu.users"/></a></strong>
-                </c:if>
+            <li><c:if test="${menuTab eq 'players'}">
+                <strong><a href="<c:url value="/players/list"/>"><spring:message code="menu.users"/></a></strong>
+            </c:if>
                 <c:if test="${menuTab != 'players'}">
                     <a href="<c:url value="/players/list"/>"><spring:message code="menu.users"/></a>
                 </c:if>
             </li>
-            <sec:authorize access="isAuthenticated()">
-                <li>
-                    <spring:url value="/logout" var="logoutUrl"/>
-                    <form action="${logoutUrl}" id="logout" method="post">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    </form>
-                    <a href="#" onclick="document.getElementById('logout').submit();"><spring:message
-                            code="menu.logout"/></a>
-                </li>
-            </sec:authorize>
         </ul>
     </div>
     <div class="content">
@@ -87,11 +75,9 @@
             <table>
                 <thead>
                 <tr>
-                    <sec:authorize url='/players/show/*'>
-                        <td>
-                            <spring:message code="label.User.count"/>
-                        </td>
-                    </sec:authorize>
+                    <td>
+                        <spring:message code="label.User.count"/>
+                    </td>
                     <td>
                         <spring:message code="label.User.username"/>
                     </td>
@@ -101,23 +87,19 @@
                     <td>
                         <spring:message code="label.User.lastname"/>
                     </td>
-                    <sec:authorize url='/players/delete/*'>
-                        <td>
-                            <spring:message code="label.delete"/>
-                        </td>
-                    </sec:authorize>
+                    <td>
+                        <spring:message code="label.User.type"/>
+                    </td>
                 </tr>
                 </thead>
                 <c:forEach var="user" items="${players}">
                     <tr>
-                        <sec:authorize url='/players/show/*'>
-                            <td>
-                                <spring:url var="showUrl" value="show/{id}">
-                                    <spring:param name="id" value="${user.id}"/>
-                                </spring:url>
-                                <a href="${showUrl}">${user.id}</a>
-                            </td>
-                        </sec:authorize>
+                        <td>
+                            <spring:url var="showUrl" value="{id}">
+                                <spring:param name="id" value="${user.id}"/>
+                            </spring:url>
+                            <a href="${showUrl}">${user.id}</a>
+                        </td>
                         <td>
                                 ${user.credentials.username}
                         </td>
@@ -127,25 +109,14 @@
                         <td>
                                 ${user.lastName}
                         </td>
-                        <sec:authorize url='/players/delete/*'>
-                            <td>
-                                <spring:url var="deleteUrl" value="delete/{id}">
-                                    <spring:param name="id" value="${user.id}"/>
-                                </spring:url>
-                                <a href="${deleteUrl}"><spring:message code="label.delete"/></a>
-                            </td>
-                        </sec:authorize>
+                        <td>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
         </div>
     </div>
     <div class="footer">
-        <sec:authorize access="isAuthenticated()">
-            <p><spring:message code="user.loggedin"/>:
-                <sec:authentication property="principal.username"/>
-            </p>
-        </sec:authorize>
     </div>
 </div>
 </body>

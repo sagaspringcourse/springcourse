@@ -1,0 +1,9 @@
+== Exercise 13-03
+
+Replace JPAConfig by setting the appropriate values to the following properties
+
+
+. spring.jpa.hibernate.ddl-auto
+. spring.datasource.url
+. spring.datasource.username
+. spring.datasource.password

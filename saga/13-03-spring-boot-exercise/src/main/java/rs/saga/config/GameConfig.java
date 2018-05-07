@@ -3,7 +3,6 @@ package rs.saga.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import rs.saga.dao.ITeamRepo;
 import rs.saga.service.GameService;
@@ -15,7 +14,6 @@ import rs.saga.service.IGameService;
  */
 @Configuration
 @ComponentScan(basePackages = {"rs.saga.service"})
-@Import(DataSourceConfig.class)
 @EnableJpaRepositories(basePackages = {"rs.saga.dao"})
 public class GameConfig {
 

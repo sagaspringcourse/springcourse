@@ -1,0 +1,4 @@
+== Exercise 13-02
+
+. Create a controller that maps root requests `"/"` to `test` view
+. Create `SpringBootJspApplicationTest` and assert that response body contains `test` text

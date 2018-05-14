@@ -1,0 +1,54 @@
+div.block {
+    position: relative;
+    background-color: #abc;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 0px;
+}
+
+div.block-split {
+    position: relative;
+    background: no-repeat transparent url('../images/hands.png');
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 0px;
+}
+
+div.block1-split {
+    position: relative;
+    background: no-repeat transparent url('../images/hands.png');
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 0px;
+}
+
+div.block1 {
+    position: relative;
+    background-color: #abc;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 0px;
+}
+
+div#team1 {
+    position: absolute;
+    background-color: transparent;
+    height: 1.1em;
+    text-align: center;
+    margin: 3px;
+    font-size: 14px;
+}
+
+div#team2 {
+    top: 200px;
+    position: absolute;
+    background-color: transparent;
+    height: 1.1em;
+    text-align: center;
+    margin: 3px;
+    font-size: 14px;
+}

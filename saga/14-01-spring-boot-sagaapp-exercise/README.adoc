@@ -1,0 +1,3 @@
+== Exercise 14-01
+
+. Change the `list.html` thymeleaf template so that it renders a list of players

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments :: head(title=~{::title/text()})">
+		<title>Players : View all</title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+			  href="../../static/css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div th:replace="fragments :: navbar">
+				<div class="container">
+					<nav th:fragment="navbar" class="navbar navbar-dark bg-primary">
+						<a class="navbar-brand" href="http://thymeleaf.org">Thymeleaf</a>
+						<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+							<li class="nav-item"><a class="nav-link" th:href="@{/}" href="messages.html">Messages</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<h4 class="float-left mt-2">Players : View all</h4>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${messages.empty}">
+						<td colspan="3">No messages</td>
+					</tr>
+					<tr th:each="message : ${messages}">
+						<td th:text="${message.id}">1</td>
+						<td th:text="${message.firstName}">First Name</td>
+						<td th:text="${message.lastName}"> Last name </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "home": {
+    "players": [
+      {
+        "id": 4,
+        "name": "Nikola",
+        "displayName": "NM"
+      },
+      {
+        "id": 5,
+        "name": "Nikola",
+        "displayName": "NS"
+      },
+      {
+        "id": 6,
+        "name": "Radenko",
+        "displayName": "RJ"
+      },
+      {
+        "id": 8,
+        "name": "Milos",
+        "displayName": "MJ"
+      }
+    ],
+    "name": "Partizan"
+  },
+  "away": {
+    "players": [
+      {
+        "id": 1,
+        "name": "Milos",
+        "displayName": "MB"
+      },
+      {
+        "id": 2,
+        "name": "Ana",
+        "displayName": "AD"
+      },
+      {
+        "id": 3,
+        "name": "Manja",
+        "displayName": "MM"
+      },
+      {
+        "id": 9,
+        "name": "Nikola",
+        "displayName": "NN"
+      }
+    ],
+    "name": "Crvena Zvezda"
+  },
+  "msg": "Nikola plays"
+}
